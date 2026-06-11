@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CyberScore // Awareness Engine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="martix-wrapper">
+        <header class="matrix-header">
+            <div class="brand">CYBERSCORE v1.0</div>
+            <div class="status-pill" id="risk-baadge">ASSESSING...</div>
+        </header>
+
+        <section class="gauge-panel">
+            <canvas id="gaugeCanvas" width="400" height="220"></canvas>
+            <div class="score-digital" id="scoreDisplay">600</div>
+        </section>
+
+        <main class="simulated-box" id="simBox">
+            <div id="scenario-wrapper">
+                <h3 id="vector-title">SYSTEM BOOTING</h3>
+                <p id="scenario-text">Initializing parameters. Prepare to defend against incoming network vectors...</p>
+                <div class="actions-grid" id="optionsGrid">
+                    <button class="matrix-btn" onclick="initEngine()">START EVALUATION</button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="matrix-footer">
+            <div>AUDIT TRAIL: <span id="log-ticker">READY TO SPIN</span></div>
+            </footer>
+        </div>
+        <script src="game.js"></script>
+        </body>
+        </html>
+        
