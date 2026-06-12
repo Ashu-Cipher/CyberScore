@@ -198,4 +198,106 @@ function drawGauge(score) {
     ctx.fill();
 }
 
+function animateGauge() {
+    if (Math.abs(animScore - targetScore) > 0.5) {
+        animScore += (targetScore - animScore) * 0.1;
+        document.getElementById('scoreDisplay').innerText = Math.round(animScore);
+        updateStatusBadge(Math.round(animScore));
+        drawGauge(animScore);
+    }
+    requestAnimationFrame(animateGauge);
+}
+
+function updateStatusBadge(score) {
+    const badge = document.getElementById('risk-badge');
+    if (score <= 550) {
+        badge.innerText = "CRITICAL RISK";
+        badge.style.color = '#ff3333';
+    } else if (score > 550 && score <=750) {
+        badge.innerText = "NEEDS UPGRADE";
+        badge.style.color = '#ffcc00';
+    } else {
+        badge.innerText = "SECURE OPERATOR";
+        badge.style.color = '#00ff66';
+    }
+}
+
+
+function initEngine() {
+    targetScore = 600;
+    currentScore = 600;
+    currentScenarioIdx = 0;
+    currentLevel = 1;
+    document.getElementById('log-ticker').innerText = "SYSTEM REBOOTED. READY.";
+    animateGauge();
+    loadScenario(currentScenarioIdx);
+}
+
+function loadScenario(idx) {
+    if (idx >= scenarios.length) {
+        showFinalReport();
+        return;
+    }
+
+    const sc = scenarios[idx];
+
+    if (sc.level > 3 && currentLevel <=3) {
+        showCheckpointScreen(idx);
+        return;
+    }
+
+    currentLevel = sc.level;
+
+    document.getElementById('vector-title').innerText = sc.title;
+    document.getElementById('scenario-text').innerText = sc.text;
+
+    let html = "";
+    sc.options.forEach((opt, oIdx) => {
+        html += `<button class="matrix-btn" onclick="handleChoice(${idx}, ${oIdx})">${opt.text}</button>`;
+    });
+    document.getElementById('optionsGrid').innerHTML = html;
+}
+
+function handleChoice(sIdx, oIdx) {
+    const option = scenarios[sIdx].options[oIdx];
+    targetScore += option.impact;
+
+    if (targetScore < 300) targetScore = 300;
+    if (targetScore > 900) targetScore = 900;
+
+    document.getElementById('log-ticker').innerText = option.feedback;
+
+    currentScenarioIdx++;
+    loadScenario(currentScenarioIdx);
+}
+
+function showCheckpointScreen(nextIdx) {
+    currentLevel = 4;
+
+    document.getElementById('vector-title').innerText = "🛡️ CHECKPOINT: CORE COMPLIANCE MET";
+    document.getElementById('scenario-text').innerText = `You have complted standard user awareness metrics. Current Cyber-CIBIL Score evaluated at ${Math.round(targetScore)}. Do you wish to finalize your profile now, or advance into technical system administrator threat vectors?`;
+    
+    let html = `
+    <button class="matrix-btn" style="border-color: #00ff66;" onclick="showFinalReport()">🏁 FINALIZE MY EVALUATION REPORT (EXIT)</button>
+    <button class="matrix-btn" style="border-color: #ffcc00;" onclick="loadScenario(${nextIdx})">☣️ PROCEED TO ADVANCED TECH THREATS (LEVELS 4-5)</butto>
+    `;
+    document.getElementById('optionsGrid').innerHTML = html; 
+}
+
+function showFinalReport() {
+    document.getElementById('vector-title').innerText = "📊 FINAL SECURITY AUDIT COMPLETE";
+
+    let evaluation = "";
+    if(targetScore >= 750) evaluation = "Outstanding threat modeling. You are clear for secure operations.";
+    else if(targetScore >=550) evaluation = "Acceptable hygiene, but further training recommended.";
+    else evaluation = "Critical vulnerabilities detected. Security clearance revoked.";
+
+    document.getElementById('scenario-text').innerText = `Final verified rating: ${Math.round(targetScore)}/900. \n\n${evaluation}`;
+    document.getElementById('operationsGrid').innerHTML = `<button class="matrix-btn" onclick="initEngine()">EXECUTE RE-AUDIT RUN</button>`;
+}
+
+window.onload = () => {
+    drawGauge(600);
+    animateGauge();
+};
 
