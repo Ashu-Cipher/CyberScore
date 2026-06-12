@@ -151,11 +151,18 @@ const scenarios = [
     }
 ];
 
-const canvas = document.getElementById('gaugeCanvas');
-const ctx = canvas.getContext('2d');
+let canvas;
+let ctx;
+window.onload = () => {
+    canvas = document.getElementById('gaugeCanvas');
+    ctx = canvas.getContext('2d');
 
-canvas.width = 400;
-canvas.height = 220;
+    canvas.width = 400;
+    canvas.height = 220;
+
+    drawGauge(600);
+    animateGauge();
+}
 
 function drawGauge(score) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
