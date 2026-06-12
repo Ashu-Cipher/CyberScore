@@ -154,6 +154,9 @@ const scenarios = [
 const canvas = document.getElementById('gaugeCanvas');
 const ctx = canvas.getContext('2d');
 
+canvas.width = 400;
+canvas.height = 220;
+
 function drawGauge(score) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
