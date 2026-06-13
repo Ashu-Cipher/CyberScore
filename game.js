@@ -622,7 +622,7 @@ function confirmQuit() {
 //RENDER QUESTION
 function renderQ() {
     answered = false;
-    var s= scenarios[curl];
+    var s= scenarios[cur];
 
     $('qCur').textContent = cur + 1;
     $('qTot').textContent = TOT;
@@ -643,7 +643,7 @@ function renderQ() {
 
     for (var i = 0; i < s.opts.length; i++) {
         var btn = document.createElement('button');
-        btn.className = 'pot-btn';
+        btn.className = 'opt-btn';
         btn.textContent = String.fromCharCode(65 + i) + '. ' + s.opts[i];
         btn.setAttribute('data-idx', i);
         btn.onclick = function () {
