@@ -567,3 +567,278 @@ var scenarios = [
 ];
 
 
+//GAME STATE
+var cur = 0;
+var score = 500;
+var correct = 0;
+var wrong = 0;
+var streak = 0;
+var bestStreak = 0;
+var answered = false;
+var catStats = {};
+var TOT = scenarios.length;
+
+var DIFF_NAMES = ["", "Easy", "Medium", "Hard", "Expert"];
+var DIFF_BADGE = ["", "badge-easy", "badge-med", "badge-hard", "badge-expert"];
+var DIFF_PTS = [0, 15, 25, 35, 50];
+
+
+//HELPERS
+function $(id) {
+    return document.getElementById(id);
+}
+
+
+//SCREEN MANAGEMENT
+function showScreen(id) {
+    var screens = document.querySelectorAll('.screen');
+    for (var i = 0; i < screens.length; i++) {
+        screens[i].classList.remove('active');
+    }
+    $(id).classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function startQuiz() {
+    cur = 0;
+    score = 500;
+    correct = 0;
+    wrong = 0;
+    streak = 0;
+    bestStreak = 0;
+    answered = false;
+    catStats = {};
+    showScreen('s-quiz');
+    renderQ();
+}
+
+function confirmQuit() {
+    if (confirm('Quit assessment? Progress will be lost.')) {
+        showScreen('s-landing');
+    }
+}
+
+
+//RENDER QUESTION
+function renderQ() {
+    answered = false;
+    var s= scenarios[curl];
+
+    $('qCur').textContent = cur + 1;
+    $('qTot').textContent = TOT;
+    $('progBar').style.width = ((cur) / TOT * 100) + '%';
+
+    var b = $('qDiffBadge');
+    b.textContent = DIFF_NAMES[s.d];
+    b.className = 'badge ' + DIFF_BADGE[s.d];
+
+    $('liveScore').textContent = score;
+    $('catIcon').textContent = s.icon;
+    $('catName').textContent = s.cat;
+    $('qTitle').textContent = s.q;
+    $('qContext').textContent = s.ctx;
+
+    var oa = $('optionsArea');
+    oa.innerHTML = '';
+
+    for (var i = 0; i < s.opts.length; i++) {
+        var btn = document.createElement('button');
+        btn.className = 'pot-btn';
+        btn.textContent = String.fromCharCode(65 + i) + '. ' + s.opts[i];
+        btn.setAttribute('data-idx', i);
+        btn.onclick = function () {
+            var idx = parseInt(this.getAttribute('data-idx'));
+            selectOpt(idx, this);
+        };
+        oa.appendChild(btn);
+    }
+
+    $('explainArea').classList.add('hidden');
+    $('explainArea').innerHTML = '';
+    $('nextBtn').classList.add('hidden');
+
+    $('scenarioArea').style.animation = 'none';
+    setTimeout(function () {
+        $('scenarioArea').style.animation = 'fadeUp .4s ease';
+    }, 10);
+}
+
+
+//ANSWER LOGIC
+function selectOpt(i, btn) {
+    if (answered) return;
+    answered = true;
+
+    var s = scenarios[cur];
+    var isCorrect = (i === s.ans);
+    var pts = DIFF_PTS[s.d];
+
+    var allBtns = document.querySelectorAll('.opt-btn');
+    for (var j = 0; j < allBtns.length; j++) {
+        allBtns[j].disabled = true;
+        if (j === s.ans) allBtns[j].classList.add('correct');
+        if (j === i && !isCorrect) allBtns[j].classList.add('wrong');
+    }
+
+    //SCORE CALCULATION
+    if (isCorrect) {
+        score = Math.min(900, score + pts);
+        correct++;
+        streak++;
+        if (streak > bestStreak) bestStreak = streak;
+    } else {
+        score = Math.max(300, score - Math.round(pts * 0.8));
+        wrong++;
+        streak = 0;
+    }
+
+    //CATEGORY STATS
+    if (!catStats[s.cat]) {
+        catStats[s.cat] = { t: 0, c: 0, icon: s.icon };
+    }
+    catStats[s.cat].t++;
+    if (isCorrect) catStats[s.cat].c++;
+
+    //STREAK BADGE
+    var sb = $('streakBadge');
+    if (streak >= 2) {
+        sb.classList.remove('hidden');
+        $('streakNum').textContent = streak;
+    } else {
+        sb.classList.add('hidden');
+    }
+
+    //LIVE SCORE
+    $('liveScore').textContent = score;
+    $('liveScore').style.color = isCorrect ? 'var(--safe)' : 'var(--danger)';
+    setTimeout(function () {
+        $('liveScore').style.color = 'var(--neon)';
+    }, 800);
+
+    //EXPLAINATION
+    var ea = $('explainArea');
+    ea.classList.remove('hidden');
+    var status = isCorrect ? '✅ Correct!' : '❌ Incorrect.';
+    ea.innerHTML = '<div class="explain-box"><strong>' + status + '</strong> ' + s.exp + '</div>';
+
+    $('nextBtn').classList.remove('hidden');
+    $('nextBtn').textContent = cur < TOT - 1 ? 'Next Question →' : 'View My CyberScore 🏆';
+}
+
+function nextQuestion() {
+    cur++;
+    if (cur >= TOT) {
+        showResults();
+        return;
+    }
+    renderQ();
+}
+
+
+//RESULTS
+function showResults() {
+    showScreen('s-results');
+
+    
+    var pct = (score - 300) / 600;
+    var offset = 251 - (pct * 251);
+    var gf = $('gaugeFill');
+    var col = score >= 750 ? 'var(--safe)' : score >= 550 ? 'var(--warn)' : 'var(--danger)';
+
+    setTimeout(function () {
+        gf.style.strokeDashoffset = offset;
+        gf.style.stroke = col;
+    }, 300);
+
+
+    var displayed = 300;
+    var target = score;
+    var step = Math.max(1, Math.floor((target - 300) / 60));
+    var si = setInterval(function() {
+        displayed = Math.min(displayed + step, target);
+        $('finalScore').textContent = displayed;
+        $('finalScore').style.color = col;
+        if (displayed >= target) clearInterval(si);
+    }, 30);
+
+    //VERDICT
+    var v;
+    if (score >= 800) {
+        v = { icon: '🛡️', t: 'Cyber Guardian', l: 'Excellent', d: 'Outstanding awareness! You can identify and defend against most cyber threats. Keep staying updated - new attack vectors emerge daily.', c: 'var(--safe)' };
+    } else if (score >= 700) {
+        v = { icon: '✅', t: 'Well Protected', l: 'Good', d: 'Strong security sense with minor gaps. Review the categories where you missed questions to achieve mastery.', c: '#4ade80' };
+    } else if (score >= 600) {
+        v = { icon: '⚡', t: 'Needs Improvement', l: 'Fair', d: 'You have basic awareness but significant gaps exist. You are vulnerable to common attacks. Focused learning recommended.', c: 'var(--warn)' };
+    } else if (score >= 450) {
+        v = { icon: '⚠️', t: 'At Risk', l: 'Poor', d: 'Significant vulnerabilities detected. You are likely to fall for common scams and attacks. Immediate cybersecurity education needed.', c: '#fb923c' };
+    } else {
+        v = { icon: '🚨', t: 'Critical Risk', l: 'Very Poor', d: 'Extremely vulnerable to cyber attacks. Your digital life is at serious risk. Start with basic cybersecurity hygiene immediately.', c: 'var(--danger)' };
+    }
+
+    $('verdictIcon').textContent = v.icon;
+    $('verdictTitle').textContent = v.t;
+    $('verdictTitle').style.col = v.c;
+    $('verdictDesc').textContent = v.d;
+    $('finalLabel').textContent = v.l;
+    $('finalLabel').style.color = v.c;
+
+    //STATS
+    $('statCorrect').textContent = correct;
+    $('statWrong').textContent = wrong;
+    $('statStreak').textContent = bestStreak;
+
+    //CATEGORY BREAKDOWN
+    var cb = $('catBreakdown');
+    var cbH = '<h3 class="font-bold text-sm text-slate-300 mb-3 uppercase tracking-wider">📊 Category Breakdown</h3>';
+
+    for (var c in catStats) {
+        var cs = catStats[c];
+        var p = Math.round(cs.c / cs.t * 100);
+        var barCol = p >= 75 ? 'var(--safe)' : p >= 50 ? 'var(--warn)' : 'var(--danger)';
+        cbH += '<div class="cat-row">';
+        cbH += '<span class="text-lg">' + cs.icon + '</spam>';
+        cbH += '<span class="name">' + c + '</span>';
+        cbH += '<span class="count">' + cs.c + '/' + cs.t + '</span>';
+        cbH += '<div class="prog-small"><div class="prog-track"><div class="prog-fill" style="width:' + p + '%;background:' + barCol + '"></div></div></div>';
+        cbH += '<span class="pct" style="color:' + barCol + '">' + p + '%</span>';
+        cbH += '</div>';
+    }
+    cb.innerHTML = cbH;
+
+    //WEAK AREAS
+    var wa = $('weakAreas');
+    var weakList = [];
+    for (var k in catStats) {
+        var cv = catStats[k];
+        if (cv.c / cv.t < 0.6) {
+            weakList.push({ n: k, i: cv.icon, p: Math.round(cv.c / cv.t * 100) });
+        }
+    }
+
+    if (weakList.length > 0) {
+        var wH = '<h3 class="font-bold text-sm text-slate-300 mb-3 uppercase tracking-wider">🎯 Focus Areas</h3>';
+        wH += '<div class="scenario-card" style="corder-color:rgba(255,56,96,.3)">';
+        for (var w = 0; w < weakList.length; w++) {
+            wH += '<div class="cat-row"><span>' + weakList[w].i + '</span><span class="name">' + weakList[w].n + '</span><span class="badge badge-hard">' + weakList[w].p + '%</span></div>';
+        }
+        wH += '<p class="tesxt-xs text-slate-500 mt-2">These are the areas where you need the most improvement.</p></div>';
+        wa.innerHTML = wH;
+    } else {
+        wa.innerHTML = '<div class="scenario-card" style="border-color:rgba(0,230,118,.3)"><p class="text-sm" style="color:var(--safe)">🎉 No critical weak areas! Great jobacross all categories. </p></div>';
+    }
+}
+
+
+//PARTICLES
+(function initParticles() {
+    var c = document.getElementById('particles');
+    for (var i = 0; i < 20; i++) {
+        var p = document.createElement('div');
+        p.className = 'particle';
+        var s = Math.random() * 4 + 1;
+        var anim = 'float' + (i % 3);
+        var dur = (Math.random() * 20 + 15) + 's';
+        p.style.cssText = 'width:' + s + 'px;height:' + s + 'px;left:' + (Math.random() * 100) + '%;top:' + (Math.random() * 100) + '%;opacity:' + (Math.random() * 0.12 + 0.03) + ';animation:' + anim + ' ' + dur + ' infinite linear;';
+        c.appendChild(p);
+    }
+})();
