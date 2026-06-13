@@ -242,7 +242,7 @@ var scenarios = [
     },
 
     {
-        d: 2, cat: "0Auth Abuse", icon: "🔗",
+        d: 2, cat: "OAuth Abuse", icon: "🔗",
         q: "A website says 'Sign in with Google' and requests permission to 'Read, compose, and delete your emails'. It's a weather app. What do you do?",
         ctx: "The weather app looks well-designed and you want to save your location preferences.",
         opts: [
@@ -416,12 +416,12 @@ var scenarios = [
         ctx: "You're designing the security for a new web application.",
         opts: [
             "Strong password policy only",
-            "CAPCHA + account lockout after 5 failed attempts",
-            "Rate limiting + CAPCH + account lockout + 2FA",
+            "CAPTCHA + account lockout after 5 failed attempts",
+            "Rate limiting + CAPTCHA + account lockout + 2FA",
             "IP-based blocking only"
         ],
         ans: 2,
-        exp: "Defense in depth: Rate limiting slows attacks, CAPCHA blocks bot, account lockout stops, persistaent attempts, and 2FA makes stolen passwords useless."
+        exp: "Defense in depth: Rate limiting slows attacks, CAPTCHA blocks bot, account lockout stops, persistent attempts, and 2FA makes stolen passwords useless."
     },
 
     //EXPERT
@@ -547,7 +547,7 @@ var scenarios = [
             "Notify only affected customers",
             "Conduct an internal investigation first, then decide"
         ],
-        and: 1,
+        ans: 1,
         exp: "Under GDPR Article 33, personal data breaches must be reported to the supervisory authority within 72 hours, regardless of intent. If high risk, affected indivduals must also be notified. 'Accidental' doesn't exempt you."
     },
 
@@ -626,13 +626,14 @@ function renderQ() {
 
     $('qCur').textContent = cur + 1;
     $('qTot').textContent = TOT;
-    $('progBar').style.width = ((cur) / TOT * 100) + '%';
+    $('progBar').style.width = ((cur + 1) / TOT * 100) + '%';
 
     var b = $('qDiffBadge');
     b.textContent = DIFF_NAMES[s.d];
     b.className = 'badge ' + DIFF_BADGE[s.d];
 
     $('liveScore').textContent = score;
+    $('liveScore').style.color = 'var(--neon)';
     $('catIcon').textContent = s.icon;
     $('catName').textContent = s.cat;
     $('qTitle').textContent = s.q;
@@ -777,7 +778,7 @@ function showResults() {
 
     $('verdictIcon').textContent = v.icon;
     $('verdictTitle').textContent = v.t;
-    $('verdictTitle').style.col = v.c;
+    $('verdictTitle').style.color = v.c;
     $('verdictDesc').textContent = v.d;
     $('finalLabel').textContent = v.l;
     $('finalLabel').style.color = v.c;
@@ -796,7 +797,7 @@ function showResults() {
         var p = Math.round(cs.c / cs.t * 100);
         var barCol = p >= 75 ? 'var(--safe)' : p >= 50 ? 'var(--warn)' : 'var(--danger)';
         cbH += '<div class="cat-row">';
-        cbH += '<span class="text-lg">' + cs.icon + '</spam>';
+        cbH += '<span class="text-lg">' + cs.icon + '</span>';
         cbH += '<span class="name">' + c + '</span>';
         cbH += '<span class="count">' + cs.c + '/' + cs.t + '</span>';
         cbH += '<div class="prog-small"><div class="prog-track"><div class="prog-fill" style="width:' + p + '%;background:' + barCol + '"></div></div></div>';
@@ -821,10 +822,10 @@ function showResults() {
         for (var w = 0; w < weakList.length; w++) {
             wH += '<div class="cat-row"><span>' + weakList[w].i + '</span><span class="name">' + weakList[w].n + '</span><span class="badge badge-hard">' + weakList[w].p + '%</span></div>';
         }
-        wH += '<p class="tesxt-xs text-slate-500 mt-2">These are the areas where you need the most improvement.</p></div>';
+        wH += '<p class="text-xs text-slate-500 mt-2">These are the areas where you need the most improvement.</p></div>';
         wa.innerHTML = wH;
     } else {
-        wa.innerHTML = '<div class="scenario-card" style="border-color:rgba(0,230,118,.3)"><p class="text-sm" style="color:var(--safe)">🎉 No critical weak areas! Great jobacross all categories. </p></div>';
+        wa.innerHTML = '<div class="scenario-card" style="border-color:rgba(0,230,118,.3)"><p class="text-sm" style="color:var(--safe)">🎉 No critical weak areas! Great job across all categories. </p></div>';
     }
 }
 
