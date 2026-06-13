@@ -1,38 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CyberScore // Awareness Engine</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberScore - Know Your Cyber Safety Level</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="martix-wrapper">
-        <header class="matrix-header">
-            <div class="brand">CYBERSCORE v1.0</div>
-            <div class="status-pill" id="risk-baadge">ASSESSING...</div>
-        </header>
 
-        <section class="gauge-panel">
-            <canvas id="gaugeCanvas" width="400" height="220"></canvas>
-            <div class="score-digital" id="scoreDisplay">600</div>
-        </section>
 
-        <main class="simulated-box" id="simBox">
-            <div id="scenario-wrapper">
-                <h3 id="vector-title">SYSTEM BOOTING</h3>
-                <p id="scenario-text">Initializing parameters. Prepare to defend against incoming network vectors...</p>
-                <div class="actions-grid" id="optionsGrid">
-                    <button class="matrix-btn" onclick="initEngine(); animateGauge();">START EVALUATION</button>
+    <div id="particles"></div>
+
+    <!--LOADING-->
+    <div id="s-landing" class="screen active">
+        <div class="flex-col-center">
+            <div class="text-center fade-up">
+                <div class="text-6xl mb-4">🛡️</div>
+                <h1 class="font-orb text-5xl font-black glow text-neon">CyberScore</h1>
+                <p class="subtitle">Know Your Cyber Safety Level</p>
+                <p class="subdesc">Face real-world cyber attack scenarios. Get scored like a credit score. Discover if you're safe - or a sitting duck.</p>
+                <button class="btn-cyber large mb-6" onclick="startQuiz()">⚡ Start Assessment</button>
+                <div class="info-row mt-4">
+                    <span>🎯 40 Scenarios</span>
+                    <span>📊 4 Difficulty Levels</span>
+                    <span>🏆 Instant Score</span>
                 </div>
             </div>
-        </main>
-
-        <footer class="matrix-footer">
-            <div>AUDIT TRAIL: <span id="log-ticker">READY TO SPIN</span></div>
-            </footer>
         </div>
-        <script src="game.js"></script>
-        </body>
-        </html>
-        
+    </div>
+
+    <!--QUIZ-->
+    <div id="s-quiz" class="screen">
+        <div class="page-center py-6" style="position: relative;z-index: 10;">
+
+            <!--Top Bar-->
+            <div class="flex-between mb-4">
+                <div class="flex-row gap-3">
+                    <span class="font-orb text-sm font-bold text-neon">CyberScore</span>
+                    <div id="streakBadge" class="streak hidden">🔥 <span id="streakNum">0</span></div>
+                </div>
+                <button class="btn-quit" onclick="confirmQuit()">✕ Quit</button>
+            </div>
+
+            <!--Progress-->
+            <div class="flex-row gap-3 mb-3">
+                <span id="text-xs text-slate-500">Q<span id="qCur">1</span>/<span id="qTot">40</span></span>
+                <div class="prog-track flex-1">
+                    <div id="progBar" class="prog-fill" style="width:0%"></div>
+                </div> 
+                <span id="qDiffBadge" class="badge badge-easy">Easy</span>
+            </div>
+
+            <!--Score-->
+            <div class="flex-center my-3">
+                <div class="text-center">
+                    <div class="text-2xl font-orb font-bold text-neon" id="liveScore">500</div>
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">Live Score</div>
+                </div>
+            </div>
+
+            <!--Scenario-->
+            <div id="scenarioArea" class="scenario-card card-glow">
+                <div class="q-header">
+                    <div id="catIcon" class="cat-icon">🎣</div>
+                    <div>
+                      <div id="catName" class="text-xs text-slate-500 uppercase tracking-wider mb-1">Phishing</div>
+                      <h2 id="qTitle" class="text-lg font-bold leading-snug">Loading...</h2>
+                    </div>
+                </div>
+                <div id="qContext" class="text-sm text-slate-400 mb-4 leading-relaxed"></div>
+                <div id="optionsArea"></div>
+                <div id="explainArea" class="hidden"></div>
+                <button id="nextBtn" class="btn-cyber w-full mt-4 hidden" onclick="nextQuestion()">Next →</button>
+            </div>
+      
+        </div>    
+    </div>
+
+    <!--RESULTS-->
+    <div id="s-results" class="screen">
+        <div class="results-center py-8 text-center" style="position:relative;z-index:10;">
+
+            <h2 class="font-orb text-2xl font-bold mb-6 glow text-neon">Your CyberScore</h2>
+
+            <!--Gauge-->
+            <div class="gauge-wrap mb-2">
+                <svg viewBox="0 0 200 110" style="width:100%;height:100%;">
+                    <path d="M20,100 A80,80 0 0,1 180,100" class="gauge-bg"/>
+                    <path id="gaugeFill" d="M20,100 A80,80 0 0,1 180,100" class="gauge-fill" stroke="var(--neon)" stroke-dasharray="251" stroke-dashoffset="251"/>
+                    <text x="12" y="108" fill="#64748b" font-size="8" font-family="Orbitron">300</text>
+                    <text x="88" y="22" fill="#64748b" font-size="8" font-family="Orbitron">650</text>
+                    <text x="168" y="108" fill="#64748b" font-size="8" font-family="Orbitron">900</text>
+                </svg>
+                <div class="gauge-label">
+                    <div id="finalScore" class="font-orb text-4xl font-black text-neon">500</div>
+                    <div id="finalLabel" class="text-sm font-semibold mt-2">Calculating...</div>
+                </div>
+            </div>
+
+            <!--Verdict-->
+            <div class="scenario-card card-glow mt-6 mb-6" style="text-align:left;">
+                <div id="verdictIcon" class="text-4xl mb-2">🛡️</div>
+                <h3 id="verdictTitle" class="text-xl font-bold mb-2">-</h3>
+                <p id="verdictDesc" class="text-slate-400 text-sm leading-relaxed">-</p>
+            </div>
+
+            <!--Stats-->
+            <div class="stats-grid mb-6">
+                <div class="scenario-card p-3">
+                    <div id="statCorrect" class="text-xl font-bold" style="color:var(--safe)">0</div>
+                    <div class="text-xs text-slate-500">Correct</div>
+                </div>
+                <div class="scenario-card p-3">
+                    <div id="statWrong" class="text-xl font-bold" style="color:var(--danger)">0</div>
+                    <div class="text-xs text-slate-500">Wrong</div>
+                </div>
+                <div class="scenario-card p-3">
+                    <div id="statStreak" class="text-xl font-bold" style="color:var(--warn)">0</div>
+                    <div class="text-xs text-slate-500">Best Streak</div>
+                </div>
+            </div>
+
+            <!--Category-->
+            <div id="catBreakdown" style="text-align:left;" class="mb-6"></div>
+
+            <!--Weak-->
+            <div id="weakAreas" style="text-align:left;" class="mb-6"></div>
+
+            <!--Actions-->
+            <div class="actions-stack">
+                <button class="btn-cyber" onclick="startQuiz()">🔄 Retake Assessment</button>
+                <button class="btn-cyber btn-secondary" onclick="showScreen('s-landing')">🏠 Home</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
