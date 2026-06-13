@@ -9,6 +9,9 @@
 
 ## 📸 Screenshots
 
+<img width="1366" height="768" alt="Screenshot_2026-06-14_01_02_37" src="https://github.com/user-attachments/assets/b0805a91-d9df-4d1c-a173-d7bc7e0aac1b" />
+
+<img width="1366" height="768" alt="Screenshot_2026-06-14_01_03_28" src="https://github.com/user-attachments/assets/41102d5c-8d7d-471b-aa30-671fd0742a34" />
 
 
 ## ⚙️ Tech Stack
