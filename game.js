@@ -185,5 +185,120 @@ var scenarios = [
         exp: "Certificate warning on previously-safe sites signal a Man-in-the-Middle attack. An attacker may be intercepting your connetion. Never proceed - especially on public Wi-Fi."
     },
 
-    
+    {
+        d: 2, cat: "Spyware", icon: "👁️",
+        q: "A free flashlight app requests access to your camera, microphone, contacts, location, and SMS. What do you do?",
+        ctx: "The app has 4.5 stars and millions of downloads on the app store.",
+        opts: [
+            "Install - high rating means it's safe",
+            "Grant only camera permission for flash",
+            "Don't instal - a flashlight doesn't need those permissions",
+            "Install but revoke permissions later"
+        ],
+        ans: 2,
+        exp: "Legitimate flashlight apps need zero extra permissions. Excessive permission requests indicate potential spyware. High rating can be faked. Always check permission relevance."
+    },
+
+    {
+        d: 2, cat: "Phishing", icon: "🎣",
+        q: "You receive a text: 'Your package is held at customs. Pay $5 processing fee to release: [link]'. You are expecting a package. What do you do?",
+        ctx: "The tracking number mentioned doesn't match any you recognize, but you've ordered multiple items online recently.",
+        opts: [
+            "Click and pay $5 - it's a small amount",
+            "Ignore it - customs doesn't work this way.",
+            "Check the tracking on the official courier website",
+            "Call the number back to verify"
+        ],
+        ans: 1,
+        exp: "Customs never sends SMS payment links. This is smishing. The small fee is bait - they want your card details. Always check tracking through official courier apps/websites."
+    },
+
+    {
+        d: 2, cat: "Weak Passwords", icon: "🔑",
+        q: "You use the same password for 30+ accounts. You learn one service was breached. What's your priority?",
+        ctx: "The breached service was food delivery app. You use the same Password for email, banking, and social media.",
+        opts: [
+            "Change only the breached service's password",
+            "Change email and banking password first, then others",
+            "Change all 30+ passwords to the same new strong password",
+            "Wait to see if you're actually affected"
+        ],
+        ans: 1,
+        exp: "Credential stuffing attacks try leaked passwords on other services. Prioritize high-value accounts immediately. use UNIQUE passwords for each service - get a password manager."
+    },
+
+    {
+        d: 2, cat: "Eavesdropping", icon: "👂",
+        q: "You are discussing a confidential business deal on a phone call in a crowded cafe. A stranger nearby seems to be listening intently. What do you do?",
+        ctx: "The deal involves financial figures and hasn't been publically announced yet.",
+        opts: [
+            "Continue - they probably can't understand context",
+            "Lower your voice and continue the call",
+            "Tell the caller you'll call back from a private location",
+            "Move to a different seat in the cafe"
+        ],
+        ans: 2,
+        exp: "Physical eavesdropping is a real threat. Shoulder surfing and overhearing sensitive info is social engineering 101. End the call and move to private space for confidential discussions."
+    },
+
+    {
+        d: 2, cat: "0Auth Abuse", icon: "🔗",
+        q: "A website says 'Sign in with Google' and requests permission to 'Read, compose, and delete your emails'. It's a weather app. What do you do?",
+        ctx: "The weather app looks well-designed and you want to save your location preferences.",
+        opts: [
+            "Allow - Google sign-in is always safe",
+            "Allow but plan to revoke access later",
+            "Deny and create a regular account with email/password instead",
+            "Allow only read access to emails"
+        ],
+        ans: 2,
+        exp: "OAuth abuse: apps request excessive permissions during Google/Facebook sign-in. A weather app has no reason to access your emails. Create a separate account or use 'Sign in with Google' only for profile-level access."
+    },
+
+    {
+        d: 2, cat: "Confidential Info", icon: "📋",
+        q: "You're working remotely at a library. You need to step away for 5 minutes. What to do with your laptop showing confidential spreadsheets?",
+        ctx: "Your laptop has client financial data and project details on screen",
+        opts: [
+            "Leave it - you'll only be 5 minutes",
+            "Ask the person next to you to watch it",
+            "Lock the screen and take your laptop with you",
+            "Close the lid and leave it on the table"
+        ],
+        ans: 2, 
+        exp: "Even 'locking and leaving' is risky in public - devices can be stolen. Always take the device with you. Visual privacy screens help when working, but physical security of the device is paramount."
+    },
+
+    {
+        d: 2, cat: "Brute Force", icon: "🔨",
+        q: "You get notifications about 50 failed login attempts on your computer in the last hour. What do you do first?",
+        ctx: "Your account is still accessible and nothing seems changed.",
+        opts: [
+            "Ignore - the attacker clearly failed",
+            "Change your password immediately",
+            "Enable 2FA if not already on",
+            "Change password + 2FA, check for unauthorized sessions"
+        ],
+        ans: 3,
+        exp: "Multiple failed logins = brute force attack in progress. Change password and enable 2FA together. Also check active session and revoke unknown ones."
+    },
+
+    //HARD
+    {
+        d: 3, cat: "Phishing", icon: "🎣",
+        q: "You recieve an email from 'Security@yourcompany.com' (real company domain) asking you to re-authenticate via a link due to security upgrade. What's suspicious?",
+        ctx: "The email has perfect formatting, company logo, and was sent durin work hours. The link goes to 'yourcompany-auth.com'.",
+        opts: [
+            "Nothing - it's from your own company domain",
+            "The link domain differs from the company domain",
+            "The timing during work hours is suspicious",
+            "The company logo could be fake"
+        ],
+        ans: 1,
+        exp: "Email sender addresses can be spoofed! The critical clue is the link domain: 'yourcompany-auth.com' is NOT 'yourcompany.com'. Always check actual destination."
+    },
+
+    {
+        
+    }
 ]
