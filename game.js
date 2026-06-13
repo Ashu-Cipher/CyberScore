@@ -425,5 +425,145 @@ var scenarios = [
     },
 
     //EXPERT
-    
-]
+    {
+        d: 4, cat: "Phishing", icon: "🎣",
+        q: "An attacker uses homograph techniques: the URL looks like'apple.com' but uses Cyrillic character instead of Latin 'a'. How is this detected?",
+        ctx: "Your browser shows a valid SSL certificate for this domain. The page is pixel-perfect copy of apple's site.",
+        opts: [
+            "Check the SSL certifier issuer",
+            "Use Punycode display - the browser should now show 'xn--pple-43d.com'",
+            "Compare the page source code",
+            "Check WHOIS registration date"
+        ],
+        ans: 1,
+        exp: "IDN homograph attavks use visually identical Unicode characters. Modern browsers display Punycode (xn--) for mixed-script somains. Always check if URLs display normally and enable Punycode display in browser settings."
+    },
+
+    {
+        d: 4, cat: "MITM Attack", icon: "🕵️",
+        q: "Your security team detects ARP spoofing on the corporate network. What is the attacker trying to achieve?",
+        ctx: "Network monitoring shows duplicate MAC addresses and unusual ARP replies.",
+        opts: [
+            "Crashing the network switches",
+            "Redirecting network traffic through their machine to intercept data",
+            "Stealing Wi-Fi bandwidth",
+            "Bypassing the firewall"
+        ],
+        ans: 1,
+        exp: "ARP spoofing poisons the ARP cache, making devices send traffic through the attacker's machine - enabling a MITM attackon the local network. DAI on switches prevents this."
+    },
+
+    {
+        d: 4, cat: "API Exploit", icon: "⚙️",
+        q: "An API endpoint returns different error messages: 'User not found' vs 'Incorrect password'. Why is this a vulnerability?",
+        ctx: "You're doing a security audit of a REST API.",
+        opts: [
+            "Error messages use server resources",
+            "It enables user enumeration - attackers can confirm which username exist",
+            "Different messages confuse legitimate users",
+            "It exposes the database structure"
+        ],
+        ans: 1,
+        exp: "Differentiated error messages let attackers enumerate valid usernames. Once they know a username exists, they can brute force on the password. Always use generic messages like 'Invalid credentials'."
+    },
+
+    {
+        d: 4, cat: "Ransomware", icon: "💀",
+        q: "Your organization considers paying a ransomware demand of $2M. Beyond ethics, what legal risks exist?",
+        ctx: "The ransomware group is on a government sanctions list (OFCA-designated entity).",
+        opts: [
+            "No legal risk if you report the incident",
+            "Paying sanctioned entities violated law - your company can face federal penalties",
+            "Insurance will cover legal cost",
+            "Legal risk only apply to the ransomware gang, not victims"
+        ],
+        ans: 1, 
+        exp: "Paying OFAC-sanctioned ransomware groups violates law, exposing your organisation to several federal penalities regardless of the circumstances. Always consult legal counsel and law enforcement first."
+    },
+
+    {
+        d: 4, cat: "Social Engineering", icon: "🎭",
+        q: "An attacker uses 'pretexting' to call your company's help desk, impersonating an executive needing an urgent password reset. Which defense is most effective?",
+        ctx: "The attacker has the executive's name, department, employee ID.",
+        opts: [
+            "Requiring the caller to answer security questions",
+            "Callback verification to the executive's registered phone number",
+            "Asking for the employee ID number",
+            "Voice recognition software"
+        ],
+        ans: 1,
+        exp: "Security questions can be researched. Employee IDs may be leaked. Callback verification to a pre-registered ensures you're talking to the actual person - the attacker can't intercept calls to the real exec's phone."
+    },
+
+    {
+        d: 4, cat: "Eavesdropping", icon: "👂",
+        q: "Your company suspects an IMSI catcher (fake cell tower) near the office intercepting calls. What's the most effective organizational countermeasure?",
+        ctx: "Executives discuss sensitive M&A details over phone calls.",
+        opts: [
+            "Use only landlines for sensitive calls",
+            "Deploy end-to-end encrypted communication apps for all sensitive discussions",
+            "Switch all phones to 5G only mode",
+            "Use RF shielding in the building"
+        ],
+        ans: 1, 
+        exp: "IMSI catchers intercept cellular signals. End-to-end encrypted apps make intercepted data unreadable. Landlines can also be tapped. E2E encryption is the most practical and effective defense."
+    },
+
+    {
+        d: 4, cat: "OAuth Abuse", icon: "🔗",
+        q: "An attacker exploits the OAuth 2.0 'authorization code interception' attack. What's the recommended mitigation?",
+        ctx: "Your mobile app uses OAuth 2.0 for authentication with an unauthorized code flow",
+        opts: [
+            "Switch to implicit flow",
+            "Implement PKCE (Proof Key for Code Exvhange)",
+            "Use longer authorization codes",
+            "Add client-side encryption"
+        ],
+        ans: 1, 
+        exp: "PKCE prevents authorization code interception by binding the code to the original client. The implicit flow is actually LESS secure. PKCE is now recommended for all OAuth clients."
+    },
+
+    {
+        d: 4, cat: "Spyware", icon: "👁️",
+        q: "A zero-click exploit targets your phone - nointeraction needed to install spyware. Which platform feature provides the best best defense?",
+        ctx: "Think of sophisticated state-level attacks like Pegasus.",
+        opts: [
+            "Keeping the phone updated with latest patches",
+            "Enabling Apple's Lockdown Mode / similiar hardened profile",
+            "Using a VPN at all times",
+            "Installing third-party antivirus"
+        ],
+        ans: 1,
+        exp: "Lockdown Mode (Apple) drastically reduce the attack surface by disabling complex features attackers exploit (message previews, JIT compilation, etc..). Updates are important but zero-days exist before patches."
+    },
+
+    {
+        d: 4, cat: "Credential Info", icon: "📋",
+        q: "An employee accidently emails a confidential client list to the wrong external address. Under GDPR, what must happen within 72 hours?",
+        ctx: "The recipient is an unknown external email address. The file contains name, emails, and phone numbers of 10k EU customers.",
+        opts: [
+            "Nothing - it was accidental, not a breach",
+            "Notify the supervisory authority of the data breach",
+            "Notify only affected customers",
+            "Conduct an internal investigation first, then decide"
+        ],
+        and: 1,
+        exp: "Under GDPR Article 33, personal data breaches must be reported to the supervisory authority within 72 hours, regardless of intent. If high risk, affected indivduals must also be notified. 'Accidental' doesn't exempt you."
+    },
+
+    {
+        d: 4, cat: "Brute Force", icon: "🔨",
+        q: "An attacker uses a 'credential stuffing' attack with 10 million leaked username/password pairs from another breach. Which defence is LEAST effective?",
+        ctx: "Your service has standard security measures in place",
+        opts: [
+            "Passowrd complexity requirements",
+            "Multi-factor authentication (MFA)",
+            "Checking password against known breach databases",
+            "Rate limiting login attempts"
+        ],
+        ans: 0, 
+        exp: "Password complexity doesn't help against credential stuffing - the attacker alreadyv has the passwords. MFA blocks them even with Correct credentials. Breach database checks flag reused passwords."
+    }
+];
+
+
