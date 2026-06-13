@@ -299,6 +299,131 @@ var scenarios = [
     },
 
     {
-        
-    }
+        d: 3, cat: "API Exploit", icon: "⚙️",
+        q: "Your app's developer says the API key is embedded in thr mobile app's secure code for convenience. What's the risk?",
+        ctx: "It's a paid API service with billing tied to the key.",
+        opts: [
+            "No risk - mobile apps are compiled and can't be read",
+            "Low risk - only sophisticated hackers can extract it",
+            "Critical risk - APKs can be decompiled and the key extracted easily",
+            "Moderate risk - but rate limiting protects the key"
+        ],
+        ans: 2,
+        exp: "Mobile apps are trivially decompiled. API keys in client code can be extracted in minutes. Attackers can abuse the key, run up bills, or access unauthorized data. Keys must stay server-side."
+    },
+
+    {
+        d: 3, cat: "Social Engineering", icon: "🎭",
+        q: "A new IT person visits your desk with a company badge and asks you to install a 'required security update' from a USB they're carrying. What do you do?",
+        ctx: "You haven't heard about any update. They say it's urgent and they need to install ot on everyone's machine today.",
+        opts: [
+            "Let's install it - they have a company badge",
+            "Ask them to wait while you verify with the IT helpdesk",
+            "Install it yourself from the USB after they leave",
+            "Ask to see the email announcement about this update"
+        ],
+        ans: 1,
+        exp: "Badges can be faked or stolen. Legitimate IT deployement don't use random USB drives and have prior communication. Verify through official IT channels."
+    },
+
+    {
+        d: 3, cat: "MITM Attack", icon: "🕵️",
+        q: "You're developing a web app. A security auditor says your site is vulnerable to SSL stripping. What does this mean?",
+        ctx: "Your site uses HTTPS but the auditor found a specific vulnerability.",
+        opts: [
+            "The SSL certificate has expired",
+            "Attackers can downgrade HTTPS to HTTP and intercept Data",
+            "The encryption algo is weak",
+            "The site allows too many SSL connections"
+        ],
+        ans: 1,
+        exp: "SSL stripping is a MITM technique where attackers intercept the initial HTTP request and prevent the HTTPS upgrade, making the user browse in insecure HTTP while thinking they're secure. HSTS headers prevent this."
+    },
+
+    {
+        d: 3, cat: "Ransomware", icon: "💀",
+        q: "Your company was hit by ransomware. The IT team restored from backups, nut systems are infected within hours. What likely happened?",
+        ctx: "The Backups were clean and verified. The ransomware varient is the same one.",
+        opts: [
+            "The backups were actually infected",
+            "The attacker still has access through a backdoor or persistance mechanism",
+            "The ransomware was hiding in RAM",
+            "Other emplyees clicked same phishng email"
+        ],
+        ans: 1,
+        exp: "Attackers often extablish persistence (backdoors, scheduled tasks, compromised accounts) before deploying ransomware. Full invident response is needed."
+    },
+
+    {
+        d: 3, cat: "Fake QR", icon: "📱",
+        q: "A QR code on legitimate poster redirects you to a URL shortened with bit.ly. Before proceeding, what should concern you?",
+        ctx: "The poster advertises a government subsidy scheme.",
+        opts: [
+            "URL shortners are always dangerous",
+            "You can't verify the final destination before clickng",
+            "The government would never use QR codes",
+            "bit.ly is a known malware service"
+        ],
+        ans: 1, 
+        exp: "URL shorteners mask the true destination. Attackers overlay QR codes on legitimate posters. You should preview shortened URLs (bit.ly+) or look directly on government site."
+    },
+
+    {
+        d: 3, cat: "Spyware", icon: "👁️",
+        q: "Your phone's battery drains unusually fast, data usage spike at night, and you hear faint clicking during calls. What's most likely happening?",
+        ctx: "You installed several apps last month from both official and third-party stores.",
+        opts: [
+            "Your phone is old and needs replacement",
+            "A background app is consumng resources",
+            "Your phone may have stalkware/spyware installed",
+            "Your carrier is having network issues"
+        ],
+        ans: 2,
+        exp: "Battery drain, unexplained data usage, and call interference are classic stalkware symptoms. Check installed apps, review permissions, use mobile security software, and consider a factory reset."
+    },
+
+    {
+        d: 3, cat: "OAuth Abuse", icon: "🔗",
+        q: "You review your google account's third party access and find an app called 'PDF Converter Pro' with full Gmail access you don't remember authorizing. What do you do?",
+        ctx: "You've used various online tools over the past years.",
+        opts: [
+            "Leave it - you probably authorized it and forgot",
+            "Revoke access immediately and change your Google password",
+            "Revoke access only - no need to change password",
+            "Contact Google support to investigate"
+        ],
+        ans: 1,
+        exp: "Revoke access and change password. The app may have already read sensitive emails. Also review your email for forwarding rules attacker may have set. enable 2FA if not active."
+    },
+
+    {
+        d: 3, cat: "Data Privacy", icon: "🔒",
+        q: "A job recruiter on LinkedIn asks for your DOB, mother's maiden name, and first school to 'verify your identity for an interview'. Red flags?",
+        ctx: "The recruiter has a professional-looking profile with 500+ connections and claims to work for Fortune 500 company.",
+        opts: [
+            "It's standard HR procedure for background checks",
+            "These are commom security question answers - likely social engineering",
+            "Only suspicious if they ask for your SSN",
+            "LinkedIn profiles can be trusted if they have many connections"
+        ],
+        ans: 1,
+        exp: "DOB, mother's maiden name, and first school are classic securityb question answer. An attacker collecting these can reset your accounts. Legitimate recruiters never ask for this info via LinkedIn."
+    },
+
+    {
+        d: 3, cat: "Brute Force", icon: "🔨",
+        q: "Your website uses a login form. What combination of defences best prevents brute force attacks?",
+        ctx: "You're designing the security for a new web application.",
+        opts: [
+            "Strong password policy only",
+            "CAPCHA + account lockout after 5 failed attempts",
+            "Rate limiting + CAPCH + account lockout + 2FA",
+            "IP-based blocking only"
+        ],
+        ans: 2,
+        exp: "Defense in depth: Rate limiting slows attacks, CAPCHA blocks bot, account lockout stops, persistaent attempts, and 2FA makes stolen passwords useless."
+    },
+
+    //EXPERT
+    
 ]
