@@ -567,7 +567,7 @@ var scenarios = [
 ];
 
 
-//GAME STATE
+
 var cur = 0;
 var score = 500;
 var correct = 0;
@@ -583,13 +583,13 @@ var DIFF_BADGE = ["", "badge-easy", "badge-med", "badge-hard", "badge-expert"];
 var DIFF_PTS = [0, 15, 25, 35, 50];
 
 
-//HELPERS
+
 function $(id) {
     return document.getElementById(id);
 }
 
 
-//SCREEN MANAGEMENT
+
 function showScreen(id) {
     var screens = document.querySelectorAll('.screen');
     for (var i = 0; i < screens.length; i++) {
@@ -619,7 +619,6 @@ function confirmQuit() {
 }
 
 
-//RENDER QUESTION
 function renderQ() {
     answered = false;
     var s= scenarios[cur];
@@ -665,7 +664,7 @@ function renderQ() {
 }
 
 
-//ANSWER LOGIC
+
 function selectOpt(i, btn) {
     if (answered) return;
     answered = true;
@@ -681,7 +680,7 @@ function selectOpt(i, btn) {
         if (j === i && !isCorrect) allBtns[j].classList.add('wrong');
     }
 
-    //SCORE CALCULATION
+    
     if (isCorrect) {
         score = Math.min(900, score + pts);
         correct++;
@@ -693,14 +692,14 @@ function selectOpt(i, btn) {
         streak = 0;
     }
 
-    //CATEGORY STATS
+    
     if (!catStats[s.cat]) {
         catStats[s.cat] = { t: 0, c: 0, icon: s.icon };
     }
     catStats[s.cat].t++;
     if (isCorrect) catStats[s.cat].c++;
 
-    //STREAK BADGE
+    
     var sb = $('streakBadge');
     if (streak >= 2) {
         sb.classList.remove('hidden');
@@ -709,14 +708,14 @@ function selectOpt(i, btn) {
         sb.classList.add('hidden');
     }
 
-    //LIVE SCORE
+    
     $('liveScore').textContent = score;
     $('liveScore').style.color = isCorrect ? 'var(--safe)' : 'var(--danger)';
     setTimeout(function () {
         $('liveScore').style.color = 'var(--neon)';
     }, 800);
 
-    //EXPLAINATION
+    
     var ea = $('explainArea');
     ea.classList.remove('hidden');
     var status = isCorrect ? '✅ Correct!' : '❌ Incorrect.';
@@ -736,7 +735,7 @@ function nextQuestion() {
 }
 
 
-//RESULTS
+
 function showResults() {
     showScreen('s-results');
 
@@ -762,7 +761,7 @@ function showResults() {
         if (displayed >= target) clearInterval(si);
     }, 30);
 
-    //VERDICT
+    
     var v;
     if (score >= 800) {
         v = { icon: '🛡️', t: 'Cyber Guardian', l: 'Excellent', d: 'Outstanding awareness! You can identify and defend against most cyber threats. Keep staying updated - new attack vectors emerge daily.', c: 'var(--safe)' };
@@ -783,12 +782,12 @@ function showResults() {
     $('finalLabel').textContent = v.l;
     $('finalLabel').style.color = v.c;
 
-    //STATS
+    
     $('statCorrect').textContent = correct;
     $('statWrong').textContent = wrong;
     $('statStreak').textContent = bestStreak;
 
-    //CATEGORY BREAKDOWN
+    
     var cb = $('catBreakdown');
     var cbH = '<h3 class="font-bold text-sm text-slate-300 mb-3 uppercase tracking-wider">📊 Category Breakdown</h3>';
 
@@ -806,7 +805,6 @@ function showResults() {
     }
     cb.innerHTML = cbH;
 
-    //WEAK AREAS
     var wa = $('weakAreas');
     var weakList = [];
     for (var k in catStats) {
@@ -830,7 +828,6 @@ function showResults() {
 }
 
 
-//PARTICLES
 (function initParticles() {
     var c = document.getElementById('particles');
     for (var i = 0; i < 20; i++) {
