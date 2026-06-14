@@ -13,7 +13,7 @@ var scenarios = [
             "Reply asking if it's real"
         ],
         ans: 2,
-        exp: "The domain 'amaz0n-security.com' uses a zero instead of 'o' - a classical phishing trick. Always navigate to websites directly, never through email links."
+        exp: "The domain 'amaz0n-security.com' uses a zero instead of 'o' - a phishing trick. Always use websites directly, don't trust these links."
     },
 
     {
@@ -27,7 +27,7 @@ var scenarios = [
             "12345678"
         ],
         ans: 2,
-        exp: "Random mix of uppercase, lowercase, numbers and symbols is strongest. Personal info and common patterns are easily guessable or crackable."
+        exp: "Random password with mix of uppercase, lowercase, numbers and symbols is strongest. Personal info and common patterns are easily guessable or crackable."
     },
 
     {
@@ -69,7 +69,7 @@ var scenarios = [
             "Text them the password and demete the message after"
         ],
         ans: 2,
-        exp: "Never share credentials. Proper access should be granted through official channels. Even trusted coworkers sharing passwords violates security policies and creates accountabilitity gaps."
+        exp: "Never share credentials. Proper access should be granted through official channels. Sharing passwords violates security policies and shows you're not accountable."
     },
 
     {
@@ -83,7 +83,7 @@ var scenarios = [
             "Scan it but check the details before paying."
         ],
         ans: 2,
-        exp: "Scammers stick fake QR codes over real ones to redirect payment. Alert the staff immediately. Scanning even to 'ckeck' can trigger malicious downloads."
+        exp: "Scammers stick fake QR codes on real ones to redirect payment. Alert the staff immediately. Scanning can trigger malicious downloads."
     },
 
     {
@@ -97,7 +97,7 @@ var scenarios = [
         "Run a virus scan on your computer"
     ],
     ans: 1,
-    exp: "Flash Player was discontinued in 2020! This is a malware delivery trick. Always update apps from App Store"
+    exp: "Flash Player was discontinued in way before. This is trick to make you download malware. Always update apps from App Store"
     },
 
     {
@@ -111,7 +111,7 @@ var scenarios = [
             "wait until you get home to check your bank"
         ],
         ans: 3,
-        exp: "Open Wi-Fi can be spoofed by attackers (evil twin attack). For sensitive task use secure Wi-Fi or use mobile data instead."
+        exp: "Open Wi-Fi can be spoofed(evil twin attack). For sensitive task use secure Wi-Fi or use mobile data instead."
     },
 
     {
@@ -125,7 +125,7 @@ var scenarios = [
             "Check the app developer first, then decide"
         ],
         ans: 2, 
-        exp: "These 'fun quizzes' harvest personal data for scams, identity theft, or selling to third parties. The Cambridge Analytical scandal started exactly this way."
+        exp: "These 'fun quizzes' collect personal data from these for scams, identity theft, or selling to third parties."
     },
 
     {
@@ -139,7 +139,7 @@ var scenarios = [
             "Forward it to colleagues to check if they recieve it too"
         ],
         ans: 2, 
-        exp: "Double extensions hide the real file type. This is an executable file disguised as a PDF. it will run malware if opened."
+        exp: "Double extensions hide the real file type. This is an executable file and will install malware on PC."
     },
 
     //MEDIUM
@@ -154,7 +154,7 @@ var scenarios = [
             "Negotiate for a lower ransom amount"
         ],
         ans: 1, 
-        exp: "First priority: disconnect from network to prevent spread to other devices. Never pay - there's no gurantee of decryption, and it funds criminal operations. Contact IT and law enforcement or ME."
+        exp: "Disconnect from network immediately to prevent spread to other devices. Don't pay to fund money to criminals. Contact IT and law enforcement or ME."
     },
 
     {
@@ -168,7 +168,7 @@ var scenarios = [
             "Check with the finance team via email"
         ],
         ans: 2,
-        exp: "This is Business Email Compromise (BEC). Attackers spoof or hack executive emails. Always verify large transactions via different communication channel."
+        exp: "This is Business Email Compromise (BEC). Attackers spoof or hack executive emails. Always verify large transactions via call."
     },
 
     {
@@ -182,7 +182,7 @@ var scenarios = [
             "Switch to incognito mode and try"
         ],
         ans: 1,
-        exp: "Certificate warning on previously-safe sites signal a Man-in-the-Middle attack. An attacker may be intercepting your connetion. Never proceed - especially on public Wi-Fi."
+        exp: "Certificate warning on safe site usually means a MITM attack. An attacker may be intercepting your connetion. Don't Proceed, specially if you're connected to public Wi-Fi."
     },
 
     {
@@ -196,7 +196,7 @@ var scenarios = [
             "Install but revoke permissions later"
         ],
         ans: 2,
-        exp: "Legitimate flashlight apps need zero extra permissions. Excessive permission requests indicate potential spyware. High rating can be faked. Always check permission relevance."
+        exp: "Flashlight apps don't need these permissions. It is potentially a spyware. High rating can be faked. Check if permission is relevant or not."
     },
 
     {
@@ -210,7 +210,7 @@ var scenarios = [
             "Call the number back to verify"
         ],
         ans: 1,
-        exp: "Customs never sends SMS payment links. This is smishing. The small fee is bait - they want your card details. Always check tracking through official courier apps/websites."
+        exp: "Customs never sends SMS payment links. Never pay them a single penny, they want your card details. Always check tracking through official courier apps/websites."
     },
 
     {
@@ -224,7 +224,7 @@ var scenarios = [
             "Wait to see if you're actually affected"
         ],
         ans: 1,
-        exp: "Credential stuffing attacks try leaked passwords on other services. Prioritize high-value accounts immediately. use UNIQUE passwords for each service - get a password manager."
+        exp: "Credential stuffing attacks try leaked passwords on other services. Prioritize most critical accounts immediately. use UNIQUE passwords for every service."
     },
 
     {
@@ -238,7 +238,7 @@ var scenarios = [
             "Move to a different seat in the cafe"
         ],
         ans: 2,
-        exp: "Physical eavesdropping is a real threat. Shoulder surfing and overhearing sensitive info is social engineering 101. End the call and move to private space for confidential discussions."
+        exp: "Physical eavesdropping is a threat. End the call and move to private space for confidential for personal discussions."
     },
 
     {
@@ -252,7 +252,7 @@ var scenarios = [
             "Allow only read access to emails"
         ],
         ans: 2,
-        exp: "OAuth abuse: apps request excessive permissions during Google/Facebook sign-in. A weather app has no reason to access your emails. Create a separate account or use 'Sign in with Google' only for profile-level access."
+        exp: "OAuth abuse: apps ask for excessive permissions during Google/Facebook sign-in. A weather app don't need your email access. Create a separate account or use 'Sign in with Google' only if they are trusted and do't need sensitive permissions."
     },
 
     {
@@ -266,7 +266,7 @@ var scenarios = [
             "Close the lid and leave it on the table"
         ],
         ans: 2, 
-        exp: "Even 'locking and leaving' is risky in public - devices can be stolen. Always take the device with you. Visual privacy screens help when working, but physical security of the device is paramount."
+        exp: "It's risky to leave device there, it can be stolen. Always keep the device with you."
     },
 
     {
@@ -280,7 +280,7 @@ var scenarios = [
             "Change password + 2FA, check for unauthorized sessions"
         ],
         ans: 3,
-        exp: "Multiple failed logins = brute force attack in progress. Change password and enable 2FA together. Also check active session and revoke unknown ones."
+        exp: "Multiple failed logins means someone is trying to brute force. Change password and enable 2FA . Also check active session and remove unknown ones."
     },
 
     //HARD
@@ -295,7 +295,7 @@ var scenarios = [
             "The company logo could be fake"
         ],
         ans: 1,
-        exp: "Email sender addresses can be spoofed! The critical clue is the link domain: 'yourcompany-auth.com' is NOT 'yourcompany.com'. Always check actual destination."
+        exp: "Email addresses can be spoofed. The domain link is different from your company domain."
     },
 
     {
@@ -309,7 +309,7 @@ var scenarios = [
             "Moderate risk - but rate limiting protects the key"
         ],
         ans: 2,
-        exp: "Mobile apps are trivially decompiled. API keys in client code can be extracted in minutes. Attackers can abuse the key, run up bills, or access unauthorized data. Keys must stay server-side."
+        exp: "Mobile apps can be easily decompiled can API Key can be extracted. Keys must stay server-side."
     },
 
     {
@@ -323,7 +323,7 @@ var scenarios = [
             "Ask to see the email announcement about this update"
         ],
         ans: 1,
-        exp: "Badges can be faked or stolen. Legitimate IT deployement don't use random USB drives and have prior communication. Verify through official IT channels."
+        exp: "Badges can be faked or stolen. IT deployement don't use random USB drives and can communicate when update is needed. Verify first."
     },
 
     {
@@ -337,7 +337,7 @@ var scenarios = [
             "The site allows too many SSL connections"
         ],
         ans: 1,
-        exp: "SSL stripping is a MITM technique where attackers intercept the initial HTTP request and prevent the HTTPS upgrade, making the user browse in insecure HTTP while thinking they're secure. HSTS headers prevent this."
+        exp: "SSL stripping is a MITM technique that can prevent site upgrade to HTTPS and intercept your data."
     },
 
     {
@@ -351,7 +351,7 @@ var scenarios = [
             "Other emplyees clicked same phishng email"
         ],
         ans: 1,
-        exp: "Attackers often extablish persistence (backdoors, scheduled tasks, compromised accounts) before deploying ransomware. Full invident response is needed."
+        exp: "Attackers establish persistence before deploying ransomware so that he can enter even after restore. Full incident response is needed."
     },
 
     {
@@ -365,7 +365,7 @@ var scenarios = [
             "bit.ly is a known malware service"
         ],
         ans: 1, 
-        exp: "URL shorteners mask the true destination. Attackers overlay QR codes on legitimate posters. You should preview shortened URLs (bit.ly+) or look directly on government site."
+        exp: "URL shorteners mask the true destination. Attackers paste QR codes on legitimate posters to scam you. Preview shortened URLs (bit.ly+) or look directly on government site."
     },
 
     {
@@ -379,7 +379,7 @@ var scenarios = [
             "Your carrier is having network issues"
         ],
         ans: 2,
-        exp: "Battery drain, unexplained data usage, and call interference are classic stalkware symptoms. Check installed apps, review permissions, use mobile security software, and consider a factory reset."
+        exp: "These are signs that your phone might have spyware. Check installed apps, review permissions, use mobile security software, and consider a factory reset."
     },
 
     {
@@ -393,7 +393,7 @@ var scenarios = [
             "Contact Google support to investigate"
         ],
         ans: 1,
-        exp: "Revoke access and change password. The app may have already read sensitive emails. Also review your email for forwarding rules attacker may have set. enable 2FA if not active."
+        exp: "Revoke access and change password. The app may have read sensitive emails. Check your email for forwarding rules attacker may have set. enable 2FA if not active."
     },
 
     {
@@ -407,7 +407,7 @@ var scenarios = [
             "LinkedIn profiles can be trusted if they have many connections"
         ],
         ans: 1,
-        exp: "DOB, mother's maiden name, and first school are classic securityb question answer. An attacker collecting these can reset your accounts. Legitimate recruiters never ask for this info via LinkedIn."
+        exp: "these are question answer. An attacker with these can reset your accounts. Recruiters never ask for this info via LinkedIn."
     },
 
     {
@@ -421,7 +421,7 @@ var scenarios = [
             "IP-based blocking only"
         ],
         ans: 2,
-        exp: "Defense in depth: Rate limiting slows attacks, CAPTCHA blocks bot, account lockout stops, persistent attempts, and 2FA makes stolen passwords useless."
+        exp: "Rate limiting slows attacks, CAPTCHA blocks bot, account lockout stops persistent attempts, and 2FA makes stolen passwords useless."
     },
 
     //EXPERT
@@ -436,7 +436,7 @@ var scenarios = [
             "Check WHOIS registration date"
         ],
         ans: 1,
-        exp: "IDN homograph attavks use visually identical Unicode characters. Modern browsers display Punycode (xn--) for mixed-script somains. Always check if URLs display normally and enable Punycode display in browser settings."
+        exp: "IDN homograph attack use similiar looking characters. Modern browsers display Punycode (xn--) for mixed-script domains. Enable Punycode display in browser settings."
     },
 
     {
@@ -450,7 +450,7 @@ var scenarios = [
             "Bypassing the firewall"
         ],
         ans: 1,
-        exp: "ARP spoofing poisons the ARP cache, making devices send traffic through the attacker's machine - enabling a MITM attackon the local network. DAI on switches prevents this."
+        exp: "ARP spoofing makes devices send traffic through attacker's machine - enabling a MITM attack. DAI on switches prevents this."
     },
 
     {
@@ -464,7 +464,7 @@ var scenarios = [
             "It exposes the database structure"
         ],
         ans: 1,
-        exp: "Differentiated error messages let attackers enumerate valid usernames. Once they know a username exists, they can brute force on the password. Always use generic messages like 'Invalid credentials'."
+        exp: "This let attacker verify if that usename exists. Once they know a username exists, they can brute force on the password. Use messages like 'Invalid credentials'."
     },
 
     {
@@ -478,7 +478,7 @@ var scenarios = [
             "Legal risk only apply to the ransomware gang, not victims"
         ],
         ans: 1, 
-        exp: "Paying OFAC-sanctioned ransomware groups violates law, exposing your organisation to several federal penalities regardless of the circumstances. Always consult legal counsel and law enforcement first."
+        exp: "Paying OFAC-sanctioned ransomware groups is against law, eand expose your organisation to several federal penalities regardless of the circumstances. Always consult legal counsel and law enforcement first."
     },
 
     {
@@ -492,7 +492,7 @@ var scenarios = [
             "Voice recognition software"
         ],
         ans: 1,
-        exp: "Security questions can be researched. Employee IDs may be leaked. Callback verification to a pre-registered ensures you're talking to the actual person - the attacker can't intercept calls to the real exec's phone."
+        exp: "Security questions can be researched. Employee IDs may be leaked. Callback verification to a registered no is best."
     },
 
     {
@@ -506,7 +506,7 @@ var scenarios = [
             "Use RF shielding in the building"
         ],
         ans: 1, 
-        exp: "IMSI catchers intercept cellular signals. End-to-end encrypted apps make intercepted data unreadable. Landlines can also be tapped. E2E encryption is the most practical and effective defense."
+        exp: "IMSI catchers intercept cellular signals. E2E encrypted apps make intercepted data unreadable. Landlines can also be tapped. E2E encryption is the most practical and effective defense."
     },
 
     {
@@ -520,7 +520,7 @@ var scenarios = [
             "Add client-side encryption"
         ],
         ans: 1, 
-        exp: "PKCE prevents authorization code interception by binding the code to the original client. The implicit flow is actually LESS secure. PKCE is now recommended for all OAuth clients."
+        exp: "PKCE prevents authorization code interception by binding the code to the original client. PKCE is now recommended for all OAuth clients."
     },
 
     {
@@ -534,7 +534,7 @@ var scenarios = [
             "Installing third-party antivirus"
         ],
         ans: 1,
-        exp: "Lockdown Mode (Apple) drastically reduce the attack surface by disabling complex features attackers exploit (message previews, JIT compilation, etc..). Updates are important but zero-days exist before patches."
+        exp: "Lockdown Mode (Apple) minimise the attack surface. Updates are important but zero-days exist before patches."
     },
 
     {
@@ -548,7 +548,7 @@ var scenarios = [
             "Conduct an internal investigation first, then decide"
         ],
         ans: 1,
-        exp: "Under GDPR Article 33, personal data breaches must be reported to the supervisory authority within 72 hours, regardless of intent. If high risk, affected indivduals must also be notified. 'Accidental' doesn't exempt you."
+        exp: "Under GDPR Article 33, personal data breaches must be reported to the supervisory authority within 72 hours, regardless of intent. If high risk, affected indivduals must also be notified."
     },
 
     {
@@ -562,7 +562,7 @@ var scenarios = [
             "Rate limiting login attempts"
         ],
         ans: 0, 
-        exp: "Password complexity doesn't help against credential stuffing - the attacker alreadyv has the passwords. MFA blocks them even with Correct credentials. Breach database checks flag reused passwords."
+        exp: "Password complexity doesn't help against credential stuffing because the attacker already has the passwords. MFA blocks them even with Correct credentials."
     }
 ];
 
