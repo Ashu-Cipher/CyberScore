@@ -566,7 +566,7 @@ var scenarios = [
     }
 ];
 
-function shuffleOpt {
+function shuffleQuestionOptions(s) {
     var mapped = [];
     for (var i = 0; i < s.opts.length; i++) {
         mapped.push({ text: s.opts[i], wasAns: i === s.ans });
@@ -630,7 +630,7 @@ function startQuiz() {
     answered = false;
     catStats = {};
     for (var i = 0; i < scenarios.length; i++) {
-        shuffleOpt(scenarios[i]);
+         shuffleQuestionOptions(scenarios[i]);
     }
     showScreen('s-quiz');
     renderQ();
