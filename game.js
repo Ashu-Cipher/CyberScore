@@ -630,7 +630,7 @@ function startQuiz() {
     answered = false;
     catStats = {};
     for (var i = 0; i < scenarios.length; i++) {
-        shuffleQuestionOptions(scenarios[i]);
+        shuffleOpt(scenarios[i]);
     }
     showScreen('s-quiz');
     renderQ();
