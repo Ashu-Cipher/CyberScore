@@ -566,7 +566,28 @@ var scenarios = [
     }
 ];
 
+function shuffleOpt {
+    var mapped = [];
+    for (var i = 0; i < s.opts.length; i++) {
+        mapped.push({ text: s.opts[i], wasAns: i === s.ans });
+    }
 
+    // Fisher-Yates shuffle
+    for (var i = mapped.length -1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = mapped[i];
+        mapped[i] = mapped[j];
+        mapped[j] = temp;
+    }
+
+ s.opts = mapped.map(function (m) { return m.text; });
+    for (var i = 0; i < mapped.length; i++) {
+        if (mapped[i].wasAns) {
+            s.ans = i;
+            break;
+        }
+    }
+}
 
 var cur = 0;
 var score = 500;
@@ -608,6 +629,9 @@ function startQuiz() {
     bestStreak = 0;
     answered = false;
     catStats = {};
+    for (var i = 0; i < scenarios.length; i++) {
+        shuffleQuestionOptions(scenarios[i]);
+    }
     showScreen('s-quiz');
     renderQ();
 }
