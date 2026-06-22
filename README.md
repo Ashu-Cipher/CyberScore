@@ -2,7 +2,6 @@
 
 ## 📖 Description
 * CyberScore is a web based assessment tool design to test and improve user awareness against modern cyner threat. It takes you through 40 real world scenarios, and scores you like credit score.
-* This Project is made for #horizons
 
 ## 📸 Screenshots
 
@@ -18,7 +17,7 @@
 * Used SVGs so that animation stay crisp at all screen size.
 
 ## 🤖 AI Declaration
-* I, Ashu-Cipher declare that i have used Gemini for some question and options help, and used Arena.ai’s Agent Mode for assistance with debugging and finding typo in the code. Arena.ai have many models so idk exactly what was used, if i had known i would have mentioned it.
+* I, Ashu-Cipher declare that i have used Gemini for some question and options help, and used Agent Mode for assistance with debugging and finding typo in the code.
 
 
 ## 🎯 Motivation
